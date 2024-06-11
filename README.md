@@ -88,7 +88,7 @@ ros2 launch hunav_rviz2_panel hunav_rviz2_launch.py
 
 ## Tips
 
-The robot we used was the [PMB2 ROS 2](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics, that is compatible with ROS Humble. 
+The robot we used was the [PMB2 ROS 2](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics, that is compatible with ROS Humble. You must install of the required packages for the PMB2 simulation from the PAL Robotics repositories. 
 
 At the moment of this update (March 2023), there is an [issue](https://github.com/ros-controls/ros2_control/pull/957) in the ros2_control package from the apt ros-humble package server that will be solved in the next Humble sync.
 
