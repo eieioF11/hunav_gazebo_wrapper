@@ -100,13 +100,14 @@ void WorldGenerator::readPluginParams()
   plug_use_gazebo_obs_ = this->declare_parameter<bool>("use_gazebo_obs", false);
   plug_update_rate_ = this->declare_parameter<double>("update_rate", 100.0);
   plug_robot_name_ = this->declare_parameter<std::string>("robot_name", std::string("robot"));
+  RCLCPP_INFO(this->get_logger(), "Robot name: %s", plug_robot_name_.c_str());
   plug_global_frame_ = this->declare_parameter<std::string>("global_frame_to_publish", std::string("map"));
   plug_use_navgoal_to_start_ = this->declare_parameter<bool>("use_navgoal_to_start", false);
   plug_navgoal_topic_ = this->declare_parameter<std::string>("navgoal_topic", std::string("goal_pose"));
   this->declare_parameter(std::string("ignore_models"), rclcpp::ParameterType::PARAMETER_STRING);
   rclcpp::Parameter ig_models = this->get_parameter("ignore_models");
   std::string models = ig_models.as_string();
-  RCLCPP_INFO(this->get_logger(), "Ignore_models string: %s", models.c_str());
+  // RCLCPP_INFO(this->get_logger(), "Ignore_models string: %s", models.c_str());
   const char delim = ' ';
   tokenize(models, delim, plug_ignore_models_);
   for (std::string st : plug_ignore_models_)
@@ -177,16 +178,16 @@ void WorldGenerator::readAgentParams()
     //"agent1.cyclic_goals": {"type": "bool", "value": "true"},
     //"agent1.goals": {"type": "string_array", "value": "[g0, g1, g2]"}}
 
-    std::cout << "aparams: " << aparams << std::endl;
+    // std::cout << "aparams: " << aparams << std::endl;
     hunav_msgs::msg::Agent a;
     a.name = an;
-    std::cout << "aparams[0]: " << aparams[0] << std::endl;
+    // std::cout << "aparams[0]: " << aparams[0] << std::endl;
     a.id = aparams[0].as_int();
-    std::cout << "id: " << a.id << std::endl;
+    // std::cout << "id: " << a.id << std::endl;
     a.type = hunav_msgs::msg::Agent::PERSON;
-    std::cout << "aparams[1]: " << aparams[1] << std::endl;
+    // std::cout << "aparams[1]: " << aparams[1] << std::endl;
     a.skin = aparams[1].as_int();
-    std::cout << "skin: " << a.skin << std::endl;
+    // std::cout << "skin: " << a.skin << std::endl;
 
     // behavior
     a.behavior.type = aparams[2].as_int();
@@ -200,15 +201,15 @@ void WorldGenerator::readAgentParams()
     a.behavior.obstacle_force_factor = aparams[10].as_double();
     a.behavior.other_force_factor = aparams[11].as_double();
 
-    std::cout << "aparams[12]: " << aparams[12] << std::endl;
+    // std::cout << "aparams[12]: " << aparams[12] << std::endl;
     a.group_id = aparams[12].as_int();
-    std::cout << "group_id: " << a.group_id << std::endl;
-    std::cout << "aparams[13]: " << aparams[13] << std::endl;
+    // std::cout << "group_id: " << a.group_id << std::endl;
+    // std::cout << "aparams[13]: " << aparams[13] << std::endl;
     a.desired_velocity = aparams[13].as_double();
-    std::cout << "desired vel: " << a.desired_velocity << std::endl;
-    std::cout << "aparams[14]: " << aparams[14] << std::endl;
+    // std::cout << "desired vel: " << a.desired_velocity << std::endl;
+    // std::cout << "aparams[14]: " << aparams[14] << std::endl;
     a.radius = aparams[14].as_double();
-    std::cout << "radius: " << a.radius << std::endl;
+    // std::cout << "radius: " << a.radius << std::endl;
 
     // init pose
     a.position.position.x = aparams[15].as_double();
