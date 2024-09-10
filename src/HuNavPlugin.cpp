@@ -924,10 +924,12 @@ void HuNavPluginPrivate::OnUpdate(const gazebo::common::UpdateInfo& _info)
 
   // rclcpp::Time now = rosnode->get_clock()->now();
 
-  // double seconds_since_last_update = (_info.simTime - lastUpdate).Double();
+  double seconds_since_last_update = (_info.simTime - lastUpdate).Double();
   // // RCLCPP_INFO(rosnode->get_logger(), "seconds since last update: %.4f",
   // //             seconds_since_last_update);
 
+  if (seconds_since_last_update < update_rate_secs)
+    return;
   // // update_rate_secs = 0.1;
   // if (seconds_since_last_update < update_rate_secs) {
   //   // get pedestrian states (fill pedestrians)
