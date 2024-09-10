@@ -379,7 +379,7 @@ def generate_launch_description():
             description='The robot initial yaw angle in the world')
     declare_arg_laser = DeclareLaunchArgument('laser_model', default_value='sick-571-gpu', 
             description='the laser model to be used')
-    declare_arg_rgbd = DeclareLaunchArgument('rgbd_sensors', default_value='False',
+    declare_arg_rgbd = DeclareLaunchArgument('rgbd_sensors', default_value='True',
             description='whether to use rgbd cameras or not')
 
 
@@ -442,23 +442,15 @@ def generate_launch_description():
     # hunav behavior manager node
     ld.add_action(hunav_manager_node)
     # hunav evaluator
-    #ld.add_action(hunav_evaluator_node)
-
-    #ld.add_action(pmb2_gazebo)
+    ld.add_action(hunav_evaluator_node)
 
     # launch Gazebo after worldGenerator 
-    # (wait a bit for the world generation) 
-    #ld.add_action(ordered_launch_event2)
     ld.add_action(gz_launch_event)
     ld.add_action(static_tf_node)
 
     # spawn robot in Gazebo
     ld.add_action(pmb2_gazebo)
-    #ld.add_action(pmb2_launch_event)
-    #ld.add_action(base_controller)
-    #ld.add_action(joint_state_broadcaster)
-    #ld.add_action(imu_sensor_broadcaster)
-    #ld.add_action(twist_mux)
+  
 
 
     return ld
