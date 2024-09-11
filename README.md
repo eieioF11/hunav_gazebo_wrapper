@@ -88,7 +88,7 @@ ros2 launch hunav_rviz2_panel hunav_rviz2_launch.py
 
 ## Docker with PAL PMB2 robot
 
-In the directory docker_pmb2_hunavsim, we provide 3 examples for running HuNavSim with the [PMB2 Robot (ROS 2)](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics
+In the directory docker_pmb2_hunavsim, we provide a docker with the HuNavSim and the [PMB2 Robot (ROS 2)](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics
 
 Before building the docker image, it is recommended to clean the build caché of Docker:
 ```sh
@@ -105,7 +105,7 @@ After the image has been build, you can run a container by executing the bash fi
 ./run_container-pmb2_hunavsim.bash
 ```
 
-Once you are inside the container, you have three different example scenarios to launch the Pmb2 robot with the hunansim agents:
+Once you are inside the container, you have three different example scenarios to launch the Pmb2 robot (with autonomous navigation) with the hunansim agents:
 
 1. Café scenario: ```ros2 launch hunav_gazebo_wrapper pmb2_cafe.launch.py```
 2. House environment: ```ros2 launch hunav_gazebo_wrapper small_house.launch.py```
