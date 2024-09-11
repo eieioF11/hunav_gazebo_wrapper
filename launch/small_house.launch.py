@@ -284,6 +284,10 @@ def generate_launch_description():
         'configuration_file', default_value='agents.yaml',
         description='Specify configuration file name in the cofig directory'
     )
+    declare_metrics_conf_file = DeclareLaunchArgument(
+        'metrics_file', default_value='metrics.yaml',
+        description='Specify the name of the metrics configuration file in the cofig directory'
+    )
     declare_arg_world = DeclareLaunchArgument(
         'base_world', default_value='small_house.world',
         description='Specify world file name'
@@ -354,6 +358,7 @@ def generate_launch_description():
 
     # Declare the launch arguments
     ld.add_action(declare_agents_conf_file)
+    ld.add_action(declare_metrics_conf_file)
     ld.add_action(declare_arg_world)
     ld.add_action(declare_gz_obs)
     ld.add_action(declare_update_rate)
