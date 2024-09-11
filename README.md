@@ -86,24 +86,34 @@ ros2 launch hunav_rviz2_panel hunav_rviz2_launch.py
 
 * If you want to use your robot instead, you can check the launch file *pmb2_cafe.launch.py*, and replace the pmb2 robot by yours, and spawn it in Gazebo.
 
-## Tips
+## Docker with PAL PMB2 robot
 
-The robot we used was the [PMB2 ROS 2](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics, that is compatible with ROS Humble. You must install of the required packages for the PMB2 simulation from the PAL Robotics repositories. 
+In the directory docker_pmb2_hunavsim, we provide 3 examples for running HuNavSim with the [PMB2 Robot (ROS 2)](https://github.com/pal-robotics/pmb2_simulation/tree/humble-devel) from PAL Robotics
 
-At the moment of this update (March 2023), there is an [issue](https://github.com/ros-controls/ros2_control/pull/957) in the ros2_control package from the apt ros-humble package server that will be solved in the next Humble sync.
-
-To get the robot working and solve this issue, you will need to clone and build in your local workspace the following packages:
-  * [ros2_control](https://github.com/ros-controls/ros2_control/tree/humble)
-  * [gazebo_ros2_control](https://github.com/ros-controls/gazebo_ros2_control/tree/humble)
-
-PAL Robotics mentioned in their documentation that the robot simulation is more reliable if Cyclone DDS is used. We have had some problems with this because in some simulations agents didn't work as planned, so we didn't use it. Altough if you want to test it yourself, you can install it by doing:
-  * sudo apt install ros-humble-rmw-cyclonedds-cpp
-  * export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-  
-Then, you can use it by launching:
+Before building the docker image, it is recommended to clean the build caché of Docker:
 ```sh
-ros2 launch hunav_gazebo_wrapper pmb2_cafe.launch.py
+docker buildx prune
 ```
+
+Then, to build the docker image, from the docker directory, execute the folowing command in a terminal:
+```sh
+docker build -t pmb2_hunavsim -f Dockerfile.pmb2_hunavsim .
+```
+
+After the image has been build, you can run a container by executing the bash file:
+```sh
+./run_container-pmb2_hunavsim.bash
+```
+
+Once you are inside the container, you have three different example scenarios to launch the Pmb2 robot with the hunansim agents:
+
+1. Café scenario: ```ros2 launch hunav_gazebo_wrapper pmb2_cafe.launch.py```
+2. House environment: ```ros2 launch hunav_gazebo_wrapper small_house.launch.py```
+3. Small warehouse scenario: ```ros2 launch hunav_gazebo_wrapper small_warehouse.launch.py ```
+
+
+NOTE: SOMETIMES, GAZEBO TAKES A LONG TIME TO LAUNCH THE FIRST TIME LEADING TO ERRORS IN THE SYSTEM. IN THAT CASE, RE-RUN THE ROS LAUNCH FILE AGAIN. IT SHOULD WORK THE SECOND TIME.
+
 
 
 ## TODOs

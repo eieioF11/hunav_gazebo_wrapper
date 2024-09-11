@@ -1,0 +1,18 @@
+
+Before building the docker image, it is recommended to clean the build caché of Docker:
+> docker buildx prune
+
+To build the docker image, from this directory, execute the folowing command in a terminal:
+>  docker build -t pmb2_hunavsim -f Dockerfile.pmb2_hunavsim .
+
+After the image has been build, you can run a container by executing the bash file:
+> ./run_container-pmb2_hunavsim.bash
+
+Once you are inside the container, you have three different example scenarios to launch the Pmb2 robot with the hunansim agents:
+
+1. Café scenario: ros2 launch hunav_gazebo_wrapper pmb2_cafe.launch.py
+2. House environment: ros2 launch hunav_gazebo_wrapper small_house.launch.py
+3. Small warehouse scenario: ros2 launch hunav_gazebo_wrapper small_warehouse.launch.py 
+
+
+***NOTE: SOMETIMES, GAZEBO TAKES A LONG TIME TO LAUNCH THE FIRST TIME LEADING TO ERRORs IN THE SYSTEM. IN THAT CASE, RE-RUN THE ROS LAUNCH FILE AGAIN. IT SHOULD WORK THE SECOND TIME.
