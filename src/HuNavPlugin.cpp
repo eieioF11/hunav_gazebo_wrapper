@@ -521,18 +521,18 @@ void HuNavPluginPrivate::HandleObstacles()
             dist = std::get<1>(obs_intersect);
           }
 
-          /*ignition::math::Vector3d goalPos(pedestrians[i].goals[0].position.x,
-                                          pedestrians[i].goals[0].position.y,
-                                          actorPos.Z());
-          ignition::math::Line3d act_goal_line(actorPos, goalPos);
-          std::tuple<bool, double, ignition::math::Vector3d> goal_intersect =
-              modelObstacle->BoundingBox().Intersect(act_goal_line);
-          if (std::get<0>(goal_intersect) == true) {
-            if (dist > 0.0 && std::get<1>(goal_intersect) < dist) {
-              intersecPos = std::get<2>(goal_intersect);
-              dist = std::get<1>(goal_intersect);
-            }
-          }*/
+          // ignition::math::Vector3d goalPos(pedestrians[i].goals[0].position.x,
+          //                                 pedestrians[i].goals[0].position.y,
+          //                                 actorPos.Z());
+          // ignition::math::Line3d act_goal_line(actorPos, goalPos);
+          // std::tuple<bool, double, ignition::math::Vector3d> goal_intersect =
+          //     modelObstacle->BoundingBox().Intersect(act_goal_line);
+          // if (std::get<0>(goal_intersect) == true) {
+          //   if (dist > 0.0 && std::get<1>(goal_intersect) < dist) {
+          //     intersecPos = std::get<2>(goal_intersect);
+          //     dist = std::get<1>(goal_intersect);
+          //   }
+          // }
 
           if (dist > 0)
           {
@@ -709,6 +709,11 @@ void HuNavPluginPrivate::UpdateGazeboPedestrians(const gazebo::common::UpdateInf
     // boost::dynamic_pointer_cast<gazebo::physics::Model>(entity);
     gazebo::physics::ModelPtr model = world->ModelByName(a.name);
     gazebo::physics::ActorPtr actor = boost::dynamic_pointer_cast<gazebo::physics::Actor>(model);
+    std::string colision_model_name = a.name + "_collision_model";
+    // RCLCPP_INFO(rosnode->get_logger(), "actor name:%s", colision_model_name .c_str());
+    // model->NestedModel(colision_model_name);
+    gazebo::physics::ModelPtr colision_model = world->ModelByName(colision_model_name);
+    // std::cout << "colision_model: " << colision_model << std::endl;
 
     ignition::math::Pose3d actorPose = actor->WorldPose();
     double yaw = normalizeAngle(a.yaw + M_PI_2);
@@ -729,6 +734,12 @@ void HuNavPluginPrivate::UpdateGazeboPedestrians(const gazebo::common::UpdateInf
     actorPose.Pos().X(a.position.position.x);
     actorPose.Pos().Y(a.position.position.y);
     actorPose.Rot() = ignition::math::Quaterniond(1.5707, 0, yaw);
+    if (colision_model)
+    {
+      ignition::math::Pose3d colision_pose = actorPose;
+      colision_pose.Rot() = ignition::math::Quaterniond(0, 0, yaw);
+      colision_model->SetWorldPose(colision_pose);
+    }
 
     // The human agents do not have collisions.
     // When the simulation starts, they move to zero height

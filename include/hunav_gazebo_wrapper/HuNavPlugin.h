@@ -34,6 +34,7 @@
 #include "gazebo/util/system.hh"
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/World.hh>
+#include <gazebo/physics/Collision.hh>
 #include <gazebo_ros/conversions/builtin_interfaces.hpp>
 #include <gazebo_ros/conversions/geometry_msgs.hpp>
 #include <gazebo_ros/node.hpp>

@@ -251,11 +251,11 @@ def generate_launch_description():
         description='Whether to start the agents movements when a navigation goal is received or not'
     )
     declare_ignore_models = DeclareLaunchArgument(
-        'ignore_models', default_value='ground_plane cafe',
+        'ignore_models', default_value='ground_plane cafe agent1_collision_model',
         description='list of Gazebo models that the agents should ignore as obstacles as the ground_plane. Indicate the models with a blank space between them'
     )
     declare_arg_verbose = DeclareLaunchArgument(
-        'verbose', default_value='false',
+        'verbose', default_value='true',
         description='Set "true" to increase messages written to terminal.'
     )
     
